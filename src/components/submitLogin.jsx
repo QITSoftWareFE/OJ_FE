@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FormInput from "./formInput";
 import "./submitLogin.css";
+import axios from "axios";
 
 const SubmitLogin = () => {
 	// To get the data from the login.
@@ -51,8 +52,20 @@ const SubmitLogin = () => {
 		} else if (values.calibrationCode === "") {
 			alert("Please enter calibration code!");
 		} else {
-			alert(`Phone Number:${values.phoneNumber}
-            Calibration Code:${values.calibrationCode}`);
+			// To creat a new POST request to get the login by the axios.
+			axios
+				.post("/user/login", {
+					phone_number: values.phoneNumber,
+					calibration_code: values.calibrationCode,
+				})
+				.then(function (response) {
+					console.log(response);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+			// alert(`Phone Number:${values.phoneNumber}
+			// Calibration Code:${values.calibrationCode}`);
 		}
 	};
 
@@ -61,6 +74,17 @@ const SubmitLogin = () => {
 		if (values.phoneNumber === "") {
 			alert("Please enter phone number!");
 		} else {
+			// To creat a new POST request to get the Calibration Code by the axios.
+			axios
+				.post("/user/getCode", {
+					phone_number: values.phoneNumber,
+				})
+				.then(function (response) {
+					console.log(response);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
 			alert(`Phone Number: ${values.phoneNumber}
             Get Calibration Code`);
 			setTime((time) => time - 1);
