@@ -55,7 +55,7 @@ const SubmitLogin = () => {
 			// TODO: jump to a new page
 			// To creat a new POST request to get the login by the axios.
 			axios
-				.post("/user/login", {
+				.post("/api/user/login", {
 					phone_number: values.phoneNumber,
 					calibration_code: values.calibrationCode,
 				})
@@ -80,7 +80,7 @@ const SubmitLogin = () => {
 		} else {
 			// To creat a new POST request to get the Calibration Code by the axios.
 			axios
-				.post("http://127.0.0.1:5500/user/getCode", {
+				.post("http://127.0.0.1:5500/api/user/getCode", {
 					phone_number: values.phoneNumber,
 				})
 				.then(function (response) {
