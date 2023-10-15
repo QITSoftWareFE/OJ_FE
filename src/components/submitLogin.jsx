@@ -52,6 +52,7 @@ const SubmitLogin = () => {
 		} else if (values.calibrationCode === "") {
 			alert("Please enter calibration code!");
 		} else {
+			// TODO: jump to a new page
 			// To creat a new POST request to get the login by the axios.
 			axios
 				.post("/user/login", {
@@ -60,6 +61,9 @@ const SubmitLogin = () => {
 				})
 				.then(function (response) {
 					console.log(response);
+					if (response.data.stutus_msg === "success") {
+						window.history.back(-1);
+					}
 				})
 				.catch(function (error) {
 					console.log(error);
@@ -76,7 +80,7 @@ const SubmitLogin = () => {
 		} else {
 			// To creat a new POST request to get the Calibration Code by the axios.
 			axios
-				.post("/user/getCode", {
+				.post("http://127.0.0.1:5500/user/getCode", {
 					phone_number: values.phoneNumber,
 				})
 				.then(function (response) {
