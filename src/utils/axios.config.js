@@ -10,4 +10,5 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.post['Content-Type'] = 'application/w-x-www-form-urlencoded;charset=utf-8';
 
 // To configure baseURL
-axios.defaults.baseURL = "http://localhost:5500";
+// axios.defaults.baseURL = "http://localhost:5500";
+axios.defaults.baseURL = "http://1.94.38.238:5500";
