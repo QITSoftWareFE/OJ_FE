@@ -1,5 +1,5 @@
 import React from "react";
-import SubmitLogin from "../../components/submitLogin";
+import SubmitLogin from "../../components/SubmitLogin/submitLogin";
 import "./index.css";
 
 const Login = () => {

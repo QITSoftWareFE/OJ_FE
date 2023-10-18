@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FormInput from "./formInput";
+import FormInput from "../FormInput/formInput";
 import "./submitLogin.css";
 import axios from "axios";
 
