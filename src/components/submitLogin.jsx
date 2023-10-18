@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import FormInput from "./formInput";
 import "./submitLogin.css";
-import axios from "axios";
-
+// import axios from "axios";
+import {getArticleList} from "../utils/api"
+// import { UserLogin,UserGetCode } from "../utils/api";
 const SubmitLogin = () => {
 	// To get the data from the login.
 	const [values, setValues] = useState({
@@ -23,6 +24,7 @@ const SubmitLogin = () => {
 			label: "Phone Number",
 			pattern: "^[0-9]{11}$",
 			require: true,
+			maxLength:11,
 		},
 		{
 			id: 2,
@@ -33,6 +35,7 @@ const SubmitLogin = () => {
 			label: "Calibration Code",
 			pattern: "^[0-9]{6}$",
 			require: true,
+			maxLength:6,
 		},
 	];
 
@@ -54,20 +57,35 @@ const SubmitLogin = () => {
 		} else {
 			// TODO: jump to a new page
 			// To creat a new POST request to get the login by the axios.
-			axios
-				.post("http://1.94.38.238:5500/api/user/login", {
-					phone_number: values.phoneNumber,
-					calibration_code: values.calibrationCode,
-				})
-				.then(function (response) {
-					console.log(response);
-					if (response.data.stutus_msg === "success") {
-						window.history.back(-1);
-					}
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
+			// axios
+			// 	.post("http://1.94.38.238:5500/api/user/login", {
+			// 		phone_number: values.phoneNumber,
+			// 		calibration_code: values.calibrationCode,
+			// 	})
+			// 	.then(function (response) {
+			// 		console.log(response);
+			// 		if (response.data.stutus_msg === "success") {
+			// 			window.history.back(-1);
+			// 		}
+			// 	})
+			// 	.catch(function (error) {
+			// 		console.log(error);
+			// 	});
+
+			//调用封装好的axios函数
+			getArticleList({
+				phone_number: values.phoneNumber,
+				calibration_code: values.calibrationCode,
+			}).then(function (response){
+				console.log(response);
+				if(response.data.stutus_msg === "success"){
+					window.history.back(-1);
+				}
+			}).catch(function(error){
+				console.log(error);
+			})
+
+			
 			// alert(`Phone Number:${values.phoneNumber}
 			// Calibration Code:${values.calibrationCode}`);
 		}
@@ -79,16 +97,26 @@ const SubmitLogin = () => {
 			alert("Please enter phone number!");
 		} else {
 			// To creat a new POST request to get the Calibration Code by the axios.
-			axios
-				.post("http://1.94.38.238:5500/api/user/getCode", {
-					phone_number: values.phoneNumber,
-				})
-				.then(function (response) {
-					console.log(response);
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
+			// axios
+			// 	.post("http://1.94.38.238:5500/api/user/getCode", {
+			// 		phone_number: values.phoneNumber,
+			// 	})
+			// 	.then(function (response) {
+			// 		console.log(response);
+			// 	})
+			// 	.catch(function (error) {
+			// 		console.log(error);
+			// 	});
+			//调用封装好的axios函数
+			getArticleList({
+				phone_number: values.phoneNumber,
+			})
+			.then(function (response){
+				console.log(response);
+			})
+			.catch(function(error){
+				console.log(error);
+			});
 			alert(`Phone Number: ${values.phoneNumber}
 			Get Calibration Code`);
 			setTime((time) => time - 1);
@@ -109,6 +137,7 @@ const SubmitLogin = () => {
 			{/* form to user login */}
 			<form onSubmit={handleSubmit}>
 				{/* The title */}
+				<br/>
 				<h1>Welcome to</h1>
 				<h1>QIT Online Judge🎉</h1>
 				{/* The input */}
