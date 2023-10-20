@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { AiOutlineCode } from "react-icons/ai";
 import { BsGlobe, BsPhoneVibrate } from "react-icons/bs";
@@ -7,6 +7,18 @@ import { CgMenuGridO } from "react-icons/cg";
 import logo from "../../Assets/Logo.png";
 
 const Navbar = () => {
+	// To remove the NavBar in the small width screens ==>
+	const [active, setActive] = useState("navBarMenu");
+	const showNavBar = () => {
+		if (active === "navBarMenu") {
+			setActive("navBarMenu showNavBar");
+		} else {
+			setActive("navBarMenu");
+		}
+	};
+	const removeNavBar = () => {
+		setActive("navBarMenu");
+	};
 	return (
 		<div className="navBar flex">
 			<div className="navBarOne flex">
@@ -26,28 +38,42 @@ const Navbar = () => {
 				</div>
 
 				<div className="atb flex">
-					<span>Sign In</span>
-					<span>Sign Out</span>
+					<p>Sign In</p>
+					<p>Sign Out</p>
 				</div>
 			</div>
+
 			<div className="navBarTwo">
-				<div className="logo">
+				<div className="logoDiv">
 					<img src={logo} alt="logo" className="logo" />
 				</div>
-			</div>
 
-			<div className="navBarMenu">
-				<ul className="menu flex">
-					<li className="lisItem">Home</li>
-					<li className="lisItem">About</li>
-					<li className="lisItem">Offers</li>
-					<li className="lisItem">Seats</li>
-					<li className="lisItem">Destinations</li>
-				</ul>
+				<div className={active}>
+					<ul className="menu flex">
+						<li onClick={removeNavBar} className="listItem">
+							Home
+						</li>
+						<li onClick={removeNavBar} className="listItem">
+							About
+						</li>
+						<li onClick={removeNavBar} className="listItem">
+							Offers
+						</li>
+						<li onClick={removeNavBar} className="listItem">
+							Seats
+						</li>
+						<li onClick={removeNavBar} className="listItem">
+							Destinations
+						</li>
+					</ul>
 
-				<button className="btn flex btnOne">Contact</button>
+					<button onClick={removeNavBar} className="btn flex btnOne">
+						Contact
+					</button>
+				</div>
 
-				<div className="toggleIcon">
+				<button className="btn flex btnTwo">Contact</button>
+				<div onClick={showNavBar} className="toggleIcon">
 					<CgMenuGridO className="icon" />
 				</div>
 			</div>
